@@ -474,17 +474,13 @@ async def play(_, message: Message):
             [   
                 [
                                
-                    InlineKeyboardButton('📝 Playlist', callback_data='playlist'),
+                    InlineKeyboardButton('📝 Daftar Putar', callback_data='playlist'),
                     InlineKeyboardButton('Menu ⏯ ', callback_data='menu')
                 
                 ],                     
                 [
                     InlineKeyboardButton(
-                        "Group Support", url="https://t.me/VcgSupportGroup"
-                    ),
-                    InlineKeyboardButton(
-                        "Owner Irama Music", url="https://instagram.com/hendraputraaaaaa"
-                    )
+                        "📱 Follow Instagram", url="https://t.me/VcgSupportGroup") 
                 ],
                 [       
                     InlineKeyboardButton(
