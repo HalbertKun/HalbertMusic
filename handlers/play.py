@@ -175,13 +175,13 @@ def r_ply(type_):
         [
             [
                 InlineKeyboardButton('⏹', 'leave'),
-                InlineKeyboardButton('⏸', 'puse'),
-                InlineKeyboardButton('▶️', 'resume'),
+                InlineKeyboardButton('▶️', 'pause'),
+                InlineKeyboardButton('⏸', 'resume'),
                 InlineKeyboardButton('⏭', 'skip')
                 
             ],
             [
-                InlineKeyboardButton('Playlist 📖', 'playlist'),
+                InlineKeyboardButton('Playlist 📝', 'playlist'),
                 
             ],
             [       
@@ -202,7 +202,7 @@ async def ee(client, message):
     if stats:
         await message.reply(stats)              
     else:
-        await message.reply('Tidak ada instance VCG yang berjalan dalam grup ini')
+        await message.reply('Tidak ada instance obrolan suara yang berjalan dalam grup ini')
 
 @Client.on_message(
     filters.command("player")
@@ -223,7 +223,7 @@ async def settings(client, message):
         else:
             await message.reply(stats, reply_markup=r_ply('play'))
     else:
-        await message.reply('Tidak ada instance VCG yang berjalan dalam grup ini')
+        await message.reply('Tidak ada instance obrolan suara yang berjalan dalam grup ini')
 
 @Client.on_callback_query(filters.regex(pattern=r'^(playlist)$'))
 async def p_cb(b, cb):
@@ -374,7 +374,7 @@ async def m_cb(b, cb):
             if callsmusic.queues.is_empty(chat_id):
                 callsmusic.pytgcalls.leave_group_call(chat_id)
                 
-                await cb.message.edit('- Tidak Ada Lagi Daftar Putar..\n- Meninggalkan VCG!')
+                await cb.message.edit('- Tidak ada lagi daftar putar...\n- Meninggalkan obrolan suara!')
             else:
                 callsmusic.pytgcalls.change_stream(
                     chat_id,
@@ -417,7 +417,7 @@ async def play(_, message: Message):
                try:
                    await USER.join_chat(invitelink)
                    await lel.edit(
-                       "<b> userbot joined your chat</b>",
+                       "<b>Asisten bot bergabung dengan obrolan Anda</b>",
                    )
 
                except UserAlreadyParticipant:
@@ -425,8 +425,8 @@ async def play(_, message: Message):
                except Exception as e:
                    #print(e)
                    #await lel.edit(
-                   #    f"<b>User {user.first_name} couldn't join your group! Make sure user is not banned in group."
-                   #    "\n\nOr manually add @DaisyXmusic to your Group and try again</b>",
+                   #    f"<b>Pengguna {user.first_name} tidak dapat bergabung dengan grup Anda! Pastikan pengguna tidak diblokir dalam grup."
+                   #    "\n\nOr atau tambahkan @IramaMusikBot ke grup Anda secara manual dan coba lagi</b>",
                    #)
                    pass
     try:
@@ -474,16 +474,16 @@ async def play(_, message: Message):
             [   
                 [
                                
-                    InlineKeyboardButton('📖 Playlist', callback_data='playlist'),
+                    InlineKeyboardButton('📝 Playlist', callback_data='playlist'),
                     InlineKeyboardButton('Menu ⏯ ', callback_data='menu')
                 
                 ],                     
                 [
                     InlineKeyboardButton(
-                        "Group Support", url="https://t.me/SharingUserbot"
+                        "Group Support", url="https://t.me/VcgSupportGroup"
                     ),
                     InlineKeyboardButton(
-                        "Owner Music Man", url="https://instagram.com/mrismanaziz_"
+                        "Owner Irama Music", url="https://instagram.com/hendraputraaaaaa"
                     )
                 ],
                 [       
@@ -525,7 +525,7 @@ async def play(_, message: Message):
         await message.reply_photo(
         photo="final.png",
         reply_markup=keyboard,
-        caption="▶️ **Memutar** Lagu Permintaan dari {}".format(
+        caption="🎶 **Memutar** Lagu Permintaan dari {}".format(
         message.from_user.mention()
         ),
     )
@@ -551,14 +551,14 @@ async def deezer(client: Client, message_: Message):
                    invitelink = await client.export_chat_invite_link(chid)
                except:
                    await lel.edit(
-                       "<b>Add me as admin of yor group first</b>",
+                       "<b>Tambahkan saya sebagai admin grup Anda terlebih dahulu</b>",
                    )
                    return
 
                try:
                    await USER.join_chat(invitelink)
                    await lel.edit(
-                       "<b>helper userbot joined your chat</b>",
+                       "<b>Asisten bot bergabung dengan obrolan Anda</b>",
                    )
 
                except UserAlreadyParticipant:
@@ -566,8 +566,8 @@ async def deezer(client: Client, message_: Message):
                except Exception as e:
                    #print(e)
                    #await lel.edit(
-                   #    f"<b>User {user.first_name} couldn't join your group! Make sure user is not banned in group."
-                   #    "\n\nOr manually add @DaisyXmusic to your Group and try again</b>",
+                   #    f"<b>Pengguna {user.first_name} tidak bisa bergabung dengan grup Anda! Pastikan pengguna tidak diblokir dalam grup."
+                   #    "\n\nAtau tambahkan @IramaMusikBot ke Grup Anda secara manual dan coba lagi</b>",
                    #)
                    pass
     try:
@@ -575,7 +575,7 @@ async def deezer(client: Client, message_: Message):
         #lmoa = await client.get_chat_member(chid,wew)
     except:
         await lel.edit(
-            "<i> @helper Userbot not in this chat, Ask admin to send /play command for first time or add assistant manually</i>"
+            "<i> helper Userbot tidak ada dalam obrolan ini, Minta admin untuk mengirim /play perintah untuk pertama kalinya atau menambahkan asisten secara manual</i>"
         )
         return                            
     requested_by = message_.from_user.first_name
@@ -584,14 +584,14 @@ async def deezer(client: Client, message_: Message):
         lmoa = await client.get_chat_member(chid,wew)
     except:
         await lel.reply(
-            "<i>Looks like helper Userbot not in this chat, Ask admin to send /play command for first time or add assistant manually</i>"
+            "<i>Sepertinya helper Userbot tidak ada dalam obrolan ini, Minta admin untuk mengirim /play perintah untuk pertama kalinya atau menambahkan asisten secara manual</i>"
         )
         pass    
 
     text = message_.text.split(" ", 1)
     queryy = text[1]
     res = lel
-    await res.edit(f"Searching 👀👀👀 for `{queryy}` on deezer")
+    await res.edit(f"Sedang mencari 👀👀👀 untuk `{queryy}` di deezer")
     try:
         arq = ARQ("https://thearq.tech")
         r = await arq.deezer(query=queryy, limit=1)
@@ -602,22 +602,22 @@ async def deezer(client: Client, message_: Message):
         url = r[0]["url"]
     except:
         await res.edit(
-            "Found Literally Nothing, You Should Work On Your English!"
+            "Lagu tidak ditemukan. Coba cari dengan judul lagu yang lebih jelas!"
         )
         is_playing = False
         return
     keyboard = InlineKeyboardMarkup(
          [   
              [
-                 InlineKeyboardButton('📖 Playlist', callback_data='playlist'),
+                 InlineKeyboardButton('📝 Playlist', callback_data='playlist'),
                  InlineKeyboardButton('Menu ⏯ ', callback_data='menu')     
              ],                     
              [
                     InlineKeyboardButton(
-                        "Group Support", url="https://t.me/SharingUserbot"
+                        "Group Support", url="https://t.me/VcgSupportGroup"
                     ),
                     InlineKeyboardButton(
-                        "Owner Music Man", url="https://instagram.com/mrismanaziz_"
+                        "Owner Irama Music", url="https://instagram.com/hendraputraaaaaa"
                     )
                 ],
              [       
@@ -640,9 +640,9 @@ async def deezer(client: Client, message_: Message):
         loc = file_path
         appendable = [s_name, r_by, loc]
         qeue.append(appendable)
-        await res.edit_text(f"Playing [{title}]({url}) Via Deezer")
+        await res.edit_text(f"Sedang memainkan [{title}]({url}) Via Deezer")
     else:
-        await res.edit_text("▶️ Memutar Lagu.....")
+        await res.edit_text("🎶 Memutar Lagu.....")
         chat_id = message_.chat.id
         que[chat_id] = []
         qeue = que.get(message_.chat.id)
@@ -671,7 +671,7 @@ async def deezer(client: Client, message_: Message):
 )
 async def jiosaavn(client: Client, message_: Message):
     global que
-    lel = await message_.reply("🔄 **Processing**")
+    lel = await message_.reply("🔄 **Sedang memproses...**")
     administrators = await get_administrators(message_.chat)
     chid = message_.chat.id
     usar = await USER.get_me()
@@ -683,14 +683,14 @@ async def jiosaavn(client: Client, message_: Message):
                    invitelink = await client.export_chat_invite_link(chid)
                except:
                    await lel.edit(
-                       "<b>Add me as admin of yor group first</b>",
+                       "<b>Tambahkan saya sebagai admin grup Anda terlebih dahulu</b>",
                    )
                    return
 
                try:
                    await USER.join_chat(invitelink)
                    await lel.edit(
-                       "<b>helper userbot joined your chat</b>",
+                       "<b>Asisten userbot bergabung dengan obrolan Anda</b>",
                    )
 
                except UserAlreadyParticipant:
@@ -698,8 +698,8 @@ async def jiosaavn(client: Client, message_: Message):
                except Exception as e:
                    #print(e)
                    #await lel.edit(
-                   #    f"<b>User {user.first_name} couldn't join your group! Make sure user is not banned in group."
-                   #    "\n\nOr manually add @DaisyXmusic to your Group and try again</b>",
+                   #    f"<b>Pengguna {user.first_name} tidak bisa bergabung dengan grup Anda! Pastikan pengguna tidak diblokir dalam grup."
+                   #    "\n\nAtau tambahkan @IramaMusikBot ke Grup Anda secara manual dan coba lagi</b>",
                    #)
                    pass
     try:
@@ -707,7 +707,7 @@ async def jiosaavn(client: Client, message_: Message):
         #lmoa = await client.get_chat_member(chid,wew)
     except:
         await lel.edit(
-            "<i> helper Userbot not in this chat, Ask admin to send /play command for first time or add assistant manually</i>"
+            "<i> helper Userbot tidak ada dalam obrolan ini, Minta admin untuk mengirim /play perintah untuk pertama kalinya atau menambahkan asisten secara manual</i>"
         )
         return                         
     requested_by = message_.from_user.first_name
@@ -715,7 +715,7 @@ async def jiosaavn(client: Client, message_: Message):
     text = message_.text.split(" ", 1)
     query = text[1]
     res = lel
-    await res.edit(f"Searching 👀👀👀 for `{query}` on jio saavn")
+    await res.edit(f"Sedang mencari 👀👀👀 untuk `{query}` di jio saavn")
     try:
         async with aiohttp.ClientSession() as session:
             async with session.get(
@@ -729,7 +729,7 @@ async def jiosaavn(client: Client, message_: Message):
         sduration = int(r[0]["duration"])
     except Exception as e:
         await res.edit(
-            "Found Literally Nothing!, You Should Work On Your English."
+            "Lagu tidak ditemukan. Coba cari dengan judul lagu yang lebih jelas."
         )
         print(str(e))
         is_playing = False
@@ -737,15 +737,15 @@ async def jiosaavn(client: Client, message_: Message):
     keyboard = InlineKeyboardMarkup(
          [   
              [
-               InlineKeyboardButton('📖 Playlist', callback_data='playlist'),
+               InlineKeyboardButton('📝 Playlist', callback_data='playlist'),
                InlineKeyboardButton('Menu ⏯ ', callback_data='menu')   
              ],                     
              [
                 InlineKeyboardButton(
-                        "Group Support", url="https://t.me/SharingUserbot"
+                        "Group Support", url="https://t.me/VcgSupportGroup"
                 ),
                 InlineKeyboardButton(
-                        "Owner Music Man", url="https://instagram.com/mrismanaziz_"
+                        "Owner Irama Musik", url="https://instagram.com/hendraputraaaaaa"
                 )
             ],
              [       
@@ -775,7 +775,7 @@ async def jiosaavn(client: Client, message_: Message):
         )           
            
     else:
-        await res.edit_text("▶️ Memutar lagu...")
+        await res.edit_text("🎶 Memutar lagu...")
         chat_id = message_.chat.id
         que[chat_id] = []
         qeue = que.get(message_.chat.id)
@@ -792,7 +792,7 @@ async def jiosaavn(client: Client, message_: Message):
         chat_id=message_.chat.id,
         reply_markup=keyboard,
         photo="final.png",
-        caption=f"Memutar Lagu {sname} Via Jiosaavn",
+        caption=f"🎶 Memutar Lagu {sname} Via Jiosaavn",
         
     )
     os.remove("final.png")
