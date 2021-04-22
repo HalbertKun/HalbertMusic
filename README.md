@@ -1,4 +1,4 @@
-<h1 align="centre">🎶❏ Halbert Music ❏🎶</h1>
+<h1 align="centre">❏ Halbert Music ❏</h1>
 
 ### A bot that can play music on telegram group's voice call
 
