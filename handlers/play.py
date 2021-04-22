@@ -426,7 +426,7 @@ async def play(_, message: Message):
                    #print(e)
                    #await lel.edit(
                    #    f"<b>Pengguna {user.first_name} tidak dapat bergabung dengan grup Anda! Pastikan pengguna tidak diblokir dalam grup."
-                   #    "\n\nOr atau tambahkan @IramaMusikBot ke grup Anda secara manual dan coba lagi</b>",
+                   #    "\n\nAtau tambahkan @IramaMusikBot ke grup Anda secara manual dan coba lagi</b>",
                    #)
                    pass
     try:
