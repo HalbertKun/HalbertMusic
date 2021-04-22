@@ -5,5 +5,5 @@ from pyrogram.types import Chat, Message, User
 
 @USER.on_message(filters.text & filters.private & ~filters.me & ~filters.bot)
 async def pmPermit(client: USER, message: Message):
-  await USER.send_message(message.chat.id,"Halo, Saya adalah **Layanan Asisten Musik.**\n\n ❗️ Rules:\n   - Ganteng dulu kek @mrismanaziz\n   - Jangan spam Lagu biar ga error \n\n 👉 **KIRIM LINK UNDANGAN GRUP ATAU NAMA PENGGUNA JIKA USERBOT TIDAK DAPAT BERGABUNG DENGAN GRUP ANDA.**\n\n ⛑ **Group Support :** @SharingUserbot - **Owner** @mrismanaziz\n\n")
+  await USER.send_message(message.chat.id,"Alooo Ges🦸 Saya adalah **Layanan Asisten Musik.**\n\n ❗️ Rules:\n   - Harus bijaksana kek [Bang Ganteng](t.me/IamYourEnemy) \n   - Jangan spam pemutaran lagu agar bot tidak error \n\n 👉 Kirim link undangan grup atau username grup jika userbot/asisten tidak dapat bergabung dengan grup anda.\n\n 🛠️ Ke [Group Support](t.me/VcgSupportGroup) atau bisa PC ke owner [Hendra](t.me/IamYourEnemy)\n\n")
   return                        
