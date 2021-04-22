@@ -16,7 +16,7 @@ Dikelola oleh 🌻 [Hendra](t.me/IamYourEnemy) dengan niat yang dikumpulkan sela
             [ 
                 [
                     InlineKeyboardButton(
-                        "Panduan Pemakaian 📙", url="https://telegra.ph/text-04-21-4")
+                        "Panduan Pemakaian 📙", url="https://telegra.ph/IIrama-Musik-04-22")
                   ],[
                     InlineKeyboardButton(
                         "🤓 Channel Support", url="https://t.me/vckyouuu"
