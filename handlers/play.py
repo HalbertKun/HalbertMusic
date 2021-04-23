@@ -711,7 +711,7 @@ async def jiosaavn(client: Client, message_: Message):
     text = message_.text.split(" ", 1)
     query = text[1]
     res = lel
-    await res.edit(f"Sedang mencari 👀👀👀 untuk `{query}` di jio saavn")
+    await res.edit(f"Sedang mencari...🔍 untuk `{query}` di jio saavn")
     try:
         async with aiohttp.ClientSession() as session:
             async with session.get(
@@ -741,7 +741,7 @@ async def jiosaavn(client: Client, message_: Message):
                         "Group Support", url="https://t.me/VcgSupportGroup"
                 ),
                 InlineKeyboardButton(
-                        "Owner Irama Musik", url="https://instagram.com/hendraputraaaaaa"
+                        "📲 Owner", url="https://instagram.com/hendraputraaaaaa"
                 )
             ],
              [       
