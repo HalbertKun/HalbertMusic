@@ -51,7 +51,7 @@ def cb_admin_check(func: Callable) -> Callable:
         if cb.from_user.id in admemes:
             return await func(client, cb)
         else:
-            await cb.answer('You ain\'t allowed!', show_alert=True)
+            await cb.answer('Kamu tidak memiliki izin!', show_alert=True)
             return
     return decorator                                                                       
                                           
@@ -104,13 +104,13 @@ async def generate_cover(requested_by, title, views, duration, thumbnail):
     img = Image.open("temp.png")
     draw = ImageDraw.Draw(img)
     font = ImageFont.truetype("etc/font.otf", 32)
-    draw.text((205, 550), f"Title: {title}", (51, 215, 255), font=font)
+    draw.text((205, 550), f"Judul: {title}", (51, 215, 255), font=font)
     draw.text(
-        (205, 590), f"Duration: {duration}", (255, 255, 255), font=font
+        (205, 590), f"Durasi: {duration}", (255, 255, 255), font=font
     )
-    draw.text((205, 630), f"Views: {views}", (255, 255, 255), font=font)
+    draw.text((205, 630), f"Penonton: {views}", (255, 255, 255), font=font)
     draw.text((205, 670),
-        f"Added By: {requested_by}",
+        f"Request dari: {requested_by}",
         (255, 255, 255),
         font=font,
     )
@@ -130,24 +130,24 @@ async def playlist(client, message):
     global que
     queue = que.get(message.chat.id)
     if not queue:
-        await message.reply_text('Player is idle')
+        await message.reply_text('Tidak ada daftar apapun')
     temp = []
     for t in queue:
         temp.append(t)
     now_playing = temp[0][0]
     by = temp[0][1].mention(style='md')
-    msg = "**Now Playing** in {}".format(message.chat.title)
-    msg += "\n- "+ now_playing
-    msg += "\n- Req by "+by
+    msg = "**Lagu diputar** di grup {}".format(message.chat.title)
+    msg += "\n🎼 "+ now_playing
+    msg += "\n🎼 Permintaan "+by
     temp.pop(0)
     if temp:
         msg += '\n\n'
-        msg += '**Queue**'
+        msg += '**Lagu selanjutnya**'
         for song in temp:
             name = song[0]
             usr = song[1].mention(style='md')
-            msg += f'\n- {name}'
-            msg += f'\n- Req by {usr}\n'
+            msg += f'\n🎼 {name}'
+            msg += f'\n🎼 Permintaan {usr}\n'
     await message.reply_text(msg)       
     
 # ============================= Settings =========================================
@@ -155,13 +155,13 @@ async def playlist(client, message):
 def updated_stats(chat, queue, vol=100):
     if chat.id in callsmusic.pytgcalls.active_calls:
     #if chat.id in active_chats:
-        stats = '**Pengaturan dari Grup {}**'.format(chat.title)
+        stats = '**Pengaturan Obrolan Suara Grup {}**'.format(chat.title)
         if len(que) > 0:
             stats += '\n\n'
             stats += 'Volume : {}%\n'.format(vol)
             stats += 'Lagu dalam antrian : `{}`\n'.format(len(que))
             stats += 'Sedang dimainkan : **{}**\n'.format(queue[0][0])
-            stats += 'Requested by : {}'.format(queue[0][1].mention)
+            stats += 'Permintaan : {}'.format(queue[0][1].mention)
     else:
         stats = None
     return stats
@@ -174,7 +174,6 @@ def r_ply(type_):
     mar = InlineKeyboardMarkup(
         [
             [
-                InlineKeyboardButton('⏹', 'leave'),
                 InlineKeyboardButton('▶️', 'pause'),
                 InlineKeyboardButton('⏸', 'resume'),
                 InlineKeyboardButton('⏭', 'skip')
@@ -185,7 +184,7 @@ def r_ply(type_):
                 
             ],
             [       
-                InlineKeyboardButton("❌ Close",'cls')
+                InlineKeyboardButton("❌ Tutup",'cls')
             ]        
         ]
     )
@@ -202,7 +201,7 @@ async def ee(client, message):
     if stats:
         await message.reply(stats)              
     else:
-        await message.reply('Tidak ada instance obrolan suara yang berjalan dalam grup ini')
+        await message.reply('Tidak ada instansi obrolan suara yang berjalan dalam grup ini')
 
 @Client.on_message(
     filters.command("player")
@@ -236,24 +235,24 @@ async def p_cb(b, cb):
     if type_ == 'playlist':           
         queue = que.get(cb.message.chat.id)
         if not queue:   
-            await cb.message.edit('Player is idle')
+            await cb.message.edit('Tidak ada daftar apapun')
         temp = []
         for t in queue:
             temp.append(t)
         now_playing = temp[0][0]
         by = temp[0][1].mention(style='md')
-        msg = "**Sedang dimainkan** in {}".format(cb.message.chat.title)
-        msg += "\n- "+ now_playing
-        msg += "\n- Req by "+by
+        msg = "**Sedang diputar** di {}".format(cb.message.chat.title)
+        msg += "\n🎼 "+ now_playing
+        msg += "\n🎼 Permintaan "+by
         temp.pop(0)
         if temp:
              msg += '\n\n'
-             msg += '**Queue**'
+             msg += '**Lagu selanjutnya**'
              for song in temp:
                  name = song[0]
                  usr = song[1].mention(style='md')
-                 msg += f'\n- {name}'
-                 msg += f'\n- Req by {usr}\n'
+                 msg += f'\n🎼 {name}'
+                 msg += f'\n🎼 Permintaan {usr}\n'
         await cb.message.edit(msg)      
 
 @Client.on_callback_query(filters.regex(pattern=r'^(play|pause|skip|leave|puse|resume|menu|cls)$'))
@@ -272,11 +271,11 @@ async def m_cb(b, cb):
                 ) or (
                     callsmusic.pytgcalls.active_calls[chat_id] == 'paused'
                 ):
-            await cb.answer('Obrolan tidak terhubung!', show_alert=True)
+            await cb.answer('Obrolan suara tidak terhubung!', show_alert=True)
         else:
             callsmusic.pytgcalls.pause_stream(chat_id)
             
-            await cb.answer('Music Paused!')
+            await cb.answer('Musik dijeda!')
             await cb.message.edit(updated_stats(m_chat, qeue), reply_markup=r_ply('play'))
                 
 
@@ -289,31 +288,31 @@ async def m_cb(b, cb):
                 await cb.answer('Obrolan tidak terhubung!', show_alert=True)
         else:
             callsmusic.pytgcalls.resume_stream(chat_id)
-            await cb.answer('Music Resumed!')
+            await cb.answer('Musik dilanjutkan!')
             await cb.message.edit(updated_stats(m_chat, qeue), reply_markup=r_ply('pause'))
                      
 
     elif type_ == 'playlist':
         queue = que.get(cb.message.chat.id)
         if not queue:   
-            await cb.message.edit('Player is idle')
+            await cb.message.edit('Tidak ada daftar apapun')
         temp = []
         for t in queue:
             temp.append(t)
         now_playing = temp[0][0]
         by = temp[0][1].mention(style='md')
-        msg = "**Sedang Memutar** di {}".format(cb.message.chat.title)
-        msg += "\n- "+ now_playing
-        msg += "\n- Req by "+by
+        msg = "**Sedang diputar** di {}".format(cb.message.chat.title)
+        msg += "\n🎼 "+ now_playing
+        msg += "\n🎼 Permintaan "+by
         temp.pop(0)
         if temp:
              msg += '\n\n'
-             msg += '**Queue**'
+             msg += '**Lagu selanjutnya**'
              for song in temp:
                  name = song[0]
                  usr = song[1].mention(style='md')
-                 msg += f'\n- {name}'
-                 msg += f'\n- Req by {usr}\n'
+                 msg += f'\n🎼 {name}'
+                 msg += f'\n🎼 Permintaan {usr}\n'
         await cb.message.edit(msg)      
                       
     elif type_ == 'resume':     
@@ -322,7 +321,7 @@ async def m_cb(b, cb):
             ) or (
                 callsmusic.pytgcalls.active_calls[chat_id] == 'playing'
             ):
-                await cb.answer('Obrolan tidak terhubung atau sudah dimainkan', show_alert=True)
+                await cb.answer('Obrolan suara tidak terhubung atau sudah dimainkan', show_alert=True)
         else:
             callsmusic.pytgcalls.resume_stream(chat_id)
             await cb.answer('Music Resumed!')     
@@ -332,7 +331,7 @@ async def m_cb(b, cb):
                 ) or (
                     callsmusic.pytgcalls.active_calls[chat_id] == 'paused'
                 ):
-            await cb.answer('Obrolan tidak terhubung atau sudah dipause', show_alert=True)
+            await cb.answer('Obrolan tidak terhubung atau sudah dijeda', show_alert=True)
         else:
             callsmusic.pytgcalls.pause_stream(chat_id)
             
@@ -347,7 +346,6 @@ async def m_cb(b, cb):
         marr = InlineKeyboardMarkup(
             [
                 [
-                    InlineKeyboardButton('⏹', 'leave'),
                     InlineKeyboardButton('⏸', 'puse'),
                     InlineKeyboardButton('▶️', 'resume'),
                     InlineKeyboardButton('⏭', 'skip')
@@ -399,7 +397,7 @@ async def m_cb(b, cb):
 @Client.on_message(command("play") & other_filters)
 async def play(_, message: Message):
     global que
-    lel = await message.reply("🔄 **Sedang Memproses**")
+    lel = await message.reply("🔄 **Bismillaah**")
     administrators = await get_administrators(message.chat)
     chid = message.chat.id
     usar = await USER.get_me()
@@ -439,7 +437,7 @@ async def play(_, message: Message):
         return    
     sender_id = message.from_user.id
     sender_name = message.from_user.first_name
-    await lel.edit("🔎 **Sedang Mencari**")
+    await lel.edit("🔎 **Lagu ditemukan**")
     sender_id = message.from_user.id
     user_id = message.from_user.id
     sender_name = message.from_user.first_name
@@ -484,7 +482,7 @@ async def play(_, message: Message):
                 ],
                 [       
                     InlineKeyboardButton(
-                        text="❌ Close",
+                        text="❌ Tutup",
                         callback_data='cls')
 
                 ]                             
@@ -521,7 +519,7 @@ async def play(_, message: Message):
         await message.reply_photo(
         photo="final.png",
         reply_markup=keyboard,
-        caption="🎶 **Memutar** Lagu Permintaan dari {}".format(
+        caption="🎶 **Memutar Lagu Permintaan dari {}**".format(
         message.from_user.mention()
         ),
     )
@@ -587,7 +585,7 @@ async def deezer(client: Client, message_: Message):
     text = message_.text.split(" ", 1)
     queryy = text[1]
     res = lel
-    await res.edit(f"Sedang mencari...🔍 untuk `{queryy}` di deezer")
+    await res.edit(f"Sedang mencari...🔍 lagu `{queryy}` di deezer")
     try:
         arq = ARQ("https://thearq.tech")
         r = await arq.deezer(query=queryy, limit=1)
@@ -618,7 +616,7 @@ async def deezer(client: Client, message_: Message):
                 ],
              [       
                  InlineKeyboardButton(
-                     text="❌ Close",
+                     text="❌ Tutup",
                      callback_data='cls')
 
             ]                      
@@ -746,7 +744,7 @@ async def jiosaavn(client: Client, message_: Message):
             ],
              [       
                InlineKeyboardButton(
-                   text="❌ Close",
+                   text="❌ Tutup",
                    callback_data='cls')
 
             ]                          
