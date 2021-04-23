@@ -24,7 +24,7 @@ Dikelola oleh 🌻 [Hendra](t.me/IamYourEnemy). Thanks!
                         "📊 Channel Support", url="https://t.me/AkuUserBot"
                     ),
                     InlineKeyboardButton(
-                        "🔉 Channel Bucin", url="https://t.me/kutipankataaa"
+                        "🔉 Channel Bucin", url="https://t.me/kutipankataaa") 
                   ],[
                     InlineKeyboardButton(
                         "📈 Group Support", url="https://t.me/VcgSupportGroup"
