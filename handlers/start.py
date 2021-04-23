@@ -19,7 +19,7 @@ Dikelola oleh 🌻 [Hendra](t.me/IamYourEnemy) dengan niat yang dikumpulkan sela
                         "Panduan Pemakaian 📙", url="https://telegra.ph/IIrama-Musik-04-22")
                   ],[
                     InlineKeyboardButton(
-                        "🤓 Channel Support", url="https://t.me/vckyouuu"
+                        "🤓 Channel Support", url="https://t.me/AkuUserBot"
                     ),
                     InlineKeyboardButton(
                         "Channel Bucin 🤗", url="https://t.me/kutipankataaa"
@@ -49,7 +49,7 @@ async def gstart(_, message: Message):
 
 @Client.on_message(filters.command("reload") & ~filters.private & ~filters.channel)
 async def gstart(_, message: Message):
-      await message.reply_text("""✅ **Pemutar Musik Sedang Online **""",
+      await message.reply_text("""🙌🏻 **Pemutar Musik Sedang Online**""",
       reply_markup=InlineKeyboardMarkup(
             [
                 [
@@ -57,7 +57,7 @@ async def gstart(_, message: Message):
                         "Group Support", url="https://t.me/VcgSupportGroup"
                     ),
                     InlineKeyboardButton(
-                        "Instagram Owner", url="https://instagram.com/hendraputraaaaaa"
+                        "Instagram Own", url="https://instagram.com/hendraputraaaaaa"
                     )
                 ]
             ]
