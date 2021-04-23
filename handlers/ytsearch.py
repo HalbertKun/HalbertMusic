@@ -20,7 +20,7 @@ logging.getLogger("pyrogram").setLevel(logging.WARNING)
 async def ytsearch(_, message: Message):
     try:
         if len(message.command) < 2:
-            await message.reply_text("/search masukan judul lagu!")
+            await message.reply_text("/search (masukan judul lagu)!")
             return
         query = message.text.split(None, 1)[1]
         m = await message.reply_text("Searching....")
@@ -28,10 +28,10 @@ async def ytsearch(_, message: Message):
         i = 0
         text = ""
         while i < 4:
-            text += f"Judul - {results[i]['title']}\n"
-            text += f"Durasi - {results[i]['duration']}\n"
-            text += f"Penonton - {results[i]['views']}\n"
-            text += f"Channel - {results[i]['channel']}\n"
+            text += f"**Judul** - {results[i]['title']}\n"
+            text += f"**Durasi** - {results[i]['duration']}\n"
+            text += f"**Penonton** - {results[i]['views']}\n"
+            text += f"**Channel** - {results[i]['channel']}\n"
             text += f"https://youtube.com{results[i]['url_suffix']}\n\n"
             i += 1
         await m.edit(text, disable_web_page_preview=True)
