@@ -32,7 +32,7 @@ def song(client, message):
     for i in message.command[1:]:
         query += ' ' + str(i)
     print(query)
-    m = message.reply('🔎 Sedang Mencari Lagu...')
+    m = message.reply('🔎 Menemukan lagu...')
     ydl_opts = {"format": "bestaudio[ext=m4a]"}
     try:
         results = YoutubeSearch(query, max_results=1).to_dict()
@@ -61,7 +61,7 @@ def song(client, message):
             info_dict = ydl.extract_info(link, download=False)
             audio_file = ydl.prepare_filename(info_dict)
             ydl.process_info(info_dict)
-        rep = '**🎵 Uploaded by **'
+        rep = '**🎵 Diunggah oleh @IamYourEnemy**'
         secmul, dur, dur_arr = 1, 0, duration.split(':')
         for i in range(len(dur_arr)-1, -1, -1):
             dur += (int(dur_arr[i]) * secmul)
@@ -120,7 +120,7 @@ async def progress(current, total, message, start, type_of_ps, file_name=None):
         time_to_completion = round((total - current) / speed) * 1000
         estimated_total_time = elapsed_time + time_to_completion
         progress_str = "{0}{1} {2}%\n".format(
-            "".join(["𖡹" for i in range(math.floor(percentage / 10))]),
+            "".join(["⚡" for i in range(math.floor(percentage / 10))]),
             "".join(["𖡹" for i in range(10 - math.floor(percentage / 10))]),
             round(percentage, 2),
         )
@@ -256,20 +256,20 @@ async def jssong(_, message):
         await message.reply_text("/saavn (judul lagu).")
         return
     if is_downloading:
-        await message.reply_text("Downloadan yang lain sedang berlangsung, coba lagi nanti")
+        await message.reply_text("Unduhan yang lain sedang berlangsung, coba lagi nanti")
         return
     is_downloading = True
     text = message.text.split(None, 1)[1]
     query = text.replace(" ", "%20")
-    m = await message.reply_text("Sedang Mencari...")
+    m = await message.reply_text("🔍 Sedang Mencari...")
     try:
         songs = await arq.saavn(query)
         sname = songs[0].song
         slink = songs[0].media_url
         ssingers = songs[0].singers
-        await m.edit("Downloading")
+        await m.edit("Mendownload Lagu...")
         song = await download_song(slink)
-        await m.edit("Uploading")
+        await m.edit("Mengupload Lagu...")
         await message.reply_audio(audio=song, title=sname,
                                   performer=ssingers)
         os.remove(song)
@@ -292,20 +292,20 @@ async def deezsong(_, message):
         await message.reply_text("/deezer (judul lagu).")
         return
     if is_downloading:
-        await message.reply_text("Downloadan yang lain sedang berlangsung, coba lagi nanti.")
+        await message.reply_text("Unduhan yang lain sedang berlangsung, coba lagi nanti.")
         return
     is_downloading = True
     text = message.text.split(None, 1)[1]
     query = text.replace(" ", "%20")
-    m = await message.reply_text("Sedang Mencari...")
+    m = await message.reply_text("🔍 Sedang Mencari...")
     try:
         songs = await arq.deezer(query, 1)
         title = songs[0].title
         url = songs[0].url
         artist = songs[0].artist
-        await m.edit("Downloading")
+        await m.edit("Mendownload lagu...")
         song = await download_song(url)
-        await m.edit("Uploading")
+        await m.edit("Mengupload lagu...")
         await message.reply_audio(audio=song, title=title,
                                   performer=artist)
         os.remove(song)
@@ -321,16 +321,16 @@ async def deezsong(_, message):
 async def ytmusic(client,message: Message):
     global is_downloading
     if is_downloading:
-        await message.reply_text("Downloadan yang lain sedang berlangsung, coba lagi nanti.")
+        await message.reply_text("Unduhan yang lain sedang berlangsung, coba lagi nanti.")
         return
 
     urlissed = get_text(message)
 
     pablo =  await client.send_message(
             message.chat.id,
-            f"`Mendapatkan {urlissed} dari youtube, tunggu sebentar...`")
+            f"`Mendownload {urlissed} dari youtube, tunggu sebentar!`")
     if not urlissed:
-        await pablo.edit("Sintax Perintah Tidak Valid, Silakan Periksa Menu Help Untuk Mengetahui Lebih Lanjut!")
+        await pablo.edit("Sintax, Perintah tidak valid. Silahkan periksa menu help untuk mengetahui lebih lanjut!")
         return
     
     search = SearchVideos(f"{urlissed}", offset=1, mode="dict", max_results=1)
@@ -374,7 +374,7 @@ async def ytmusic(client,message: Message):
             
     
     except Exception as e:
-        #await pablo.edit(event, f"**Failed To Download** \n**Error :** `{str(e)}`")
+        #await pablo.edit(event, f"**Gagal mengunduh** \n**Terjadi kesalahan :** `{str(e)}`")
         is_downloading = False
         return
     
