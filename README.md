@@ -1,40 +1,49 @@
-<h1 align="centre">❏ Halbert Music ❏</h1>
+<h1 align="centre">𝗜𝗿𝗮𝗺𝗮 𝗠𝘂𝘀𝗶𝗸🎵</h1>
 
-### A bot that can play music on telegram group's voice call
+### Bot yang dapat memutar musik pada panggilan suara grup telegram
 
-# Available on telegram as @IramaMusikBot ⚝
 
-<h2> Features : </h2>
+
+<p align="center">
+  <img src="https://telegra.ph/file/cea5796cccbe98d8df28d.jpg">
+</p>
+
+<h2> Fitur Terbaru 🔥 </h2>
 
 - Thumbnail Support
-- Playlist Support
+- Support playlist
 - Current playback support
 - Showing track names when skipping
 - Zero downtime, Fully Stable
-- DEEZER,YOUTUBE & SAAVN PLAYBACK SUPPORTED
+- DEEZER, YOUTUBE & SAAVN PLAYBACK SUPPORTED
 - Settings panel
 - Control with buttons
+- Userbot auto join
 
 ### Commands 🛠
-#### For all in group
 
-- `/play <song name>` - play song you requested
-- `/dplay <song name>` - play song you requested via deezer
-- `/splay <song name>` - play song you requested via jio saavn
-- `/playlist` - Show now playing list
-- `/current` - Show now playing
-- `/song <song name>` - download songs you want quickly
-- `/search <query>` - search videos on youtube with details
-- `/deezer <song name>` - download songs you want quickly via deezer
-- `/saavn <song name>` - download songs you want quickly via saavn
-- `/video <song name>` - download videos you want quickly
+### Berlaku Untuk Seluruh Member
 
-#### Admins only.
-- `/player` - open music player settings panel
-- `/pause` - pause song play
-- `/resume` - resume song play
-- `/skip` - play next song
-- `/end` - stop music play
+- /play <nama lagu> - putar lagu yang Anda minta
+- /dplay <nama lagu> - putar lagu yang Anda minta melalui deezer
+- /splay <nama lagu> - putar lagu yang Anda minta melalui jio saavn
+- /playlist - Tampilkan daftar putar sekarang
+- /current - Tampilkan sekarang diputar
+- /song <nama lagu> - unduh lagu yang Anda inginkan dengan cepat
+- /search <query> - mencari video di youtube dengan detail
+- /deezer <nama lagu> - unduh lagu yang Anda inginkan dengan cepat melalui deezer
+- /saavn <nama lagu> - unduh lagu yang Anda inginkan dengan cepat melalui saavn
+- /video <nama lagu> - unduh video yang Anda inginkan dengan cepat
+
+
+### Berlaku Untuk Seluruh Admin
+- /player - buka panel pengaturan pemutar musik
+- /pause - jeda pemutaran lagu
+- /resume - melanjutkan pemutaran lagu
+- /skip - putar lagu berikutnya
+- /end - menghentikan pemutaran musik
+- /userbotjoin - undang asisten ke obrolan Anda
+- /admincache - Segarkan daftar admin
 
 
 #### Based on Callsmusic-1
@@ -43,11 +52,16 @@
 
 [![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/HalbertKun/HalbertMusic)
 
-### Generate String Session
-
-Gabung Ke [Channel Support](https://t.me/Vckyouuu) Lalu cari uname pyrogram disana. 
+Gunakan String Pyrogam
 
 ### Credits
-- [Hendra](https://t.me/IamYourEnemy)
+- [Halbert](https://github.com/HalbertKun):
+- [InukaASiTH](https://github.com/InukaAsith): Dev
+- [Wrench](https://github.com/EverythingSuckz/): Dev
+- [QueenArzoo](https://github.com/QueenArzoo): Dev
+- [lucifeermorningstar](https://github.com/lucifeermorningstar): Dev
+- [Hamker Cat](https://github.com/thehamkercat/)
+- [Anjana-Ma](https://github.com/Anjana-Ma): 
+- [ImJanindu](https://github.com/ImJanindu): 
 - [Laky](https://github.com/Laky-64) & [Andrew](https://github.com/AndrewLaneX): PyTgCalls
 - [Original Repo owners](https://github.com/suprojects/CallsMusic)
