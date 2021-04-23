@@ -587,7 +587,7 @@ async def deezer(client: Client, message_: Message):
     text = message_.text.split(" ", 1)
     queryy = text[1]
     res = lel
-    await res.edit(f"Sedang mencari 👀👀👀 untuk `{queryy}` di deezer")
+    await res.edit(f"Sedang mencari...🔍 untuk `{queryy}` di deezer")
     try:
         arq = ARQ("https://thearq.tech")
         r = await arq.deezer(query=queryy, limit=1)
@@ -598,7 +598,7 @@ async def deezer(client: Client, message_: Message):
         url = r[0]["url"]
     except:
         await res.edit(
-            "Lagu tidak ditemukan. Coba cari dengan judul lagu yang lebih jelas!"
+            "Lagu tidak ditemukan! Coba cari dengan judul lagu yang lebih jelas!"
         )
         is_playing = False
         return
@@ -613,7 +613,7 @@ async def deezer(client: Client, message_: Message):
                         "Group Support", url="https://t.me/VcgSupportGroup"
                     ),
                     InlineKeyboardButton(
-                        "Owner Irama Music", url="https://instagram.com/hendraputraaaaaa"
+                        "Owner 🖥", url="https://instagram.com/hendraputraaaaaa"
                     )
                 ],
              [       
