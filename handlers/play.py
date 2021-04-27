@@ -507,7 +507,7 @@ async def play(_, message: Message):
         qeue.append(appendable)
         callsmusic.pytgcalls.join_group_call(message.chat.id, file_path)
         await message.reply_photo(
-        photo=""final.png",
+        photo="final.png",
         reply_markup=keyboard,
         caption=f"🏷 **Title:** [{title[:35]}]({url})\n **⏱ Duration:** {duration}\n"\n
                 + f"💡 **Status:** Playing\n🎧 **Requested by:** {requested_by}".format(
