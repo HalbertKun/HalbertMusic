@@ -129,17 +129,17 @@ async def playlist(client, message):
     msg = "**• Daftar lagu yang sedang diputar di grup {}:**".format(message.chat.title)
     msg += "\n♬ "+ now_playing
     msg += "\n♬ Permintaan "+by
-    msg += "\n─────────────────────"
+    msg += "\n───────────────────────"
     temp.pop(0)
     if temp:
         msg += '\n\n'
-        msg += '**• Lagu selanjutnya yang akan diputar:**'
+        msg += '**• Daftar lagu selanjutnya yang akan diputar:**'
         for song in temp:
             name = song[0]
             usr = song[1].mention(style='md')
             msg += f'\n♬ {name}'
-            msg += f'\n♬ Permintaan {usr}\n'
-            msg += f'\n─────────────────────\n'
+            msg += f'\n♬ Permintaan {usr}'
+            msg += f'\n┈─────────────────────┈'
     await message.reply_text(msg)       
     
 # ============================= Settings =========================================
@@ -147,13 +147,13 @@ async def playlist(client, message):
 def updated_stats(chat, queue, vol=100):
     if chat.id in callsmusic.pytgcalls.active_calls:
     #if chat.id in active_chats:
-        stats = '**Pengaturan Obrolan Suara Grup {}**'.format(chat.title)
+        stats = 'Pengaturan Obrolan Suara Grup **{}**'.format(chat.title)
         if len(que) > 0:
             stats += '\n\n'
-            stats += 'Volume : {}%\n'.format(vol)
-            stats += 'Lagu dalam antrian : `{}`\n'.format(len(que))
-            stats += 'Sedang dimainkan : **{}**\n'.format(queue[0][0])
-            stats += 'Permintaan : {}'.format(queue[0][1].mention)
+            stats += '• Volume : {}%\n'.format(vol)
+            stats += '• Dalam antrian : `{}`\n'.format(len(que))
+            stats += '• Sedang dimainkan : {}\n'.format(queue[0][0])
+            stats += '• Permintaan : {}'.format(queue[0][1].mention)
     else:
         stats = None
     return stats
@@ -236,17 +236,17 @@ async def p_cb(b, cb):
         msg = "**• Daftar lagu yang sedang diputar di grup {}:**".format(cb.message.chat.title)
         msg += "\n♬ "+ now_playing
         msg += "\n♬ Permintaan "+by
-        msg += "\n─────────────────────"
+        msg += "\n───────────────────────"
         temp.pop(0)
         if temp:
              msg += '\n\n'
-             msg += '**• Lagu selanjutnya yang akan diputar:**'
+             msg += '**• Daftar lagu selanjutnya yang akan diputar:**'
              for song in temp:
                  name = song[0]
                  usr = song[1].mention(style='md')
                  msg += f'\n♬ {name}'
-                 msg += f'\n♬ Permintaan {usr}\n'
-                 msg += f'\n─────────────────────\n'
+                 msg += f'\n♬ Permintaan {usr}'
+                 msg += f'\n┈─────────────────────┈'
         await cb.message.edit(msg)      
 
 @Client.on_callback_query(filters.regex(pattern=r'^(play|pause|skip|leave|puse|resume|menu|cls)$'))
@@ -298,17 +298,17 @@ async def m_cb(b, cb):
         msg = "**• Daftar lagu yang sedang diputar di grup {}:**".format(cb.message.chat.title)
         msg += "\n♬ "+ now_playing
         msg += "\n♬ Permintaan "+by
-        msg += "\n─────────────────────"
+        msg += "\n───────────────────────"
         temp.pop(0)
         if temp:
              msg += '\n\n'
-             msg += '**• Lagu selanjutnya yang akan diputar:**'
+             msg += '**• Daftar lagu selanjutnya yang akan diputar:**'
              for song in temp:
                  name = song[0]
                  usr = song[1].mention(style='md')
                  msg += f'\n♬ {name}'
                  msg += f'\n♬ Permintaan {usr}\n'
-                 msg += f'\n─────────────────────\n'
+                 msg += f'\n┈─────────────────────┈'
         await cb.message.edit(msg)      
                       
     elif type_ == 'resume':     
@@ -393,7 +393,7 @@ async def m_cb(b, cb):
 @Client.on_message(command("play") & other_filters)
 async def play(_, message: Message):
     global que
-    lel = await message.reply("🔄 **Bismillaah**")
+    lel = await message.reply("🔄 **Mencari lagu...**")
     administrators = await get_administrators(message.chat)
     chid = message.chat.id
     usar = await USER.get_me()
@@ -515,8 +515,8 @@ async def play(_, message: Message):
         await message.reply_photo(
         photo="final.png",
         reply_markup=keyboard,
-        caption=f"🏷 **Title:** [{title[:35]}]({url})\n**⏱ Duration:** {duration}\n" \
-                + f"💡 **Status:** Playing\n🎧 **Requested by:** {requested_by}".format(
+        caption=f"🏷 **Judul:** {title}\n**⏱ Durasi:** {duration}\n" \
+                + f"💡 **Status:** Playing\n🎧 **Permintaan:** {requested_by}".format(
         message.from_user.mention()
         ),
     )
