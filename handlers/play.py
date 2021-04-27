@@ -104,16 +104,6 @@ async def generate_cover(requested_by, title, views, duration, thumbnail):
     img = Image.open("temp.png")
     draw = ImageDraw.Draw(img)
     font = ImageFont.truetype("etc/font.otf", 32)
-    draw.text((205, 550), f"Judul: {title}", (51, 215, 255), font=font)
-    draw.text(
-        (205, 590), f"Durasi: {duration}", (255, 255, 255), font=font
-    )
-    draw.text((205, 630), f"Penonton: {views}", (255, 255, 255), font=font)
-    draw.text((205, 670),
-        f"Request dari: {requested_by}",
-        (255, 255, 255),
-        font=font,
-    )
     img.save("final.png")
     os.remove("temp.png")
     os.remove("background.png")
@@ -136,18 +126,18 @@ async def playlist(client, message):
         temp.append(t)
     now_playing = temp[0][0]
     by = temp[0][1].mention(style='md')
-    msg = "**Lagu diputar** di grup {}".format(message.chat.title)
-    msg += "\n🎼 "+ now_playing
-    msg += "\n🎼 Permintaan "+by
+    msg = "**Daftar lagu yang sedang diputar di grup {}:**".format(message.chat.title)
+    msg += "\n♬ "+ now_playing
+    msg += "\n♬ Permintaan "+by
     temp.pop(0)
     if temp:
         msg += '\n\n'
-        msg += '**Lagu selanjutnya**'
+        msg += '**Lagu selanjutnya yang akan diputar:**'
         for song in temp:
             name = song[0]
             usr = song[1].mention(style='md')
-            msg += f'\n🎼 {name}'
-            msg += f'\n🎼 Permintaan {usr}\n'
+            msg += f'\n♬ {name}'
+            msg += f'\n♬ Permintaan {usr}\n'
     await message.reply_text(msg)       
     
 # ============================= Settings =========================================
@@ -184,7 +174,7 @@ def r_ply(type_):
                 
             ],
             [       
-                InlineKeyboardButton("❌ Tutup",'cls')
+                InlineKeyboardButton("Tutup",'cls')
             ]        
         ]
     )
@@ -222,7 +212,7 @@ async def settings(client, message):
         else:
             await message.reply(stats, reply_markup=r_ply('play'))
     else:
-        await message.reply('Tidak ada instance obrolan suara yang berjalan dalam grup ini')
+        await message.reply('Tidak ada instansi obrolan suara yang berjalan dalam grup ini')
 
 @Client.on_callback_query(filters.regex(pattern=r'^(playlist)$'))
 async def p_cb(b, cb):
@@ -241,18 +231,18 @@ async def p_cb(b, cb):
             temp.append(t)
         now_playing = temp[0][0]
         by = temp[0][1].mention(style='md')
-        msg = "**Sedang diputar** di {}".format(cb.message.chat.title)
-        msg += "\n🎼 "+ now_playing
-        msg += "\n🎼 Permintaan "+by
+        msg = "**Sedang diputar di {}:**".format(cb.message.chat.title)
+        msg += "\n♬ "+ now_playing
+        msg += "\n♬ Permintaan "+by
         temp.pop(0)
         if temp:
              msg += '\n\n'
-             msg += '**Lagu selanjutnya**'
+             msg += '**Lagu selanjutnya:**'
              for song in temp:
                  name = song[0]
                  usr = song[1].mention(style='md')
-                 msg += f'\n🎼 {name}'
-                 msg += f'\n🎼 Permintaan {usr}\n'
+                 msg += f'\n♬ {name}'
+                 msg += f'\n♬ Permintaan {usr}\n'
         await cb.message.edit(msg)      
 
 @Client.on_callback_query(filters.regex(pattern=r'^(play|pause|skip|leave|puse|resume|menu|cls)$'))
@@ -301,18 +291,18 @@ async def m_cb(b, cb):
             temp.append(t)
         now_playing = temp[0][0]
         by = temp[0][1].mention(style='md')
-        msg = "**Sedang diputar** di {}".format(cb.message.chat.title)
-        msg += "\n🎼 "+ now_playing
-        msg += "\n🎼 Permintaan "+by
+        msg = "**Sedang diputar di {}:**".format(cb.message.chat.title)
+        msg += "\n♬ "+ now_playing
+        msg += "\n♬ Permintaan "+by
         temp.pop(0)
         if temp:
              msg += '\n\n'
-             msg += '**Lagu selanjutnya**'
+             msg += '**Lagu selanjutnya:**'
              for song in temp:
                  name = song[0]
                  usr = song[1].mention(style='md')
-                 msg += f'\n🎼 {name}'
-                 msg += f'\n🎼 Permintaan {usr}\n'
+                 msg += f'\n♬ {name}'
+                 msg += f'\n♬ Permintaan {usr}\n'
         await cb.message.edit(msg)      
                       
     elif type_ == 'resume':     
@@ -324,7 +314,7 @@ async def m_cb(b, cb):
                 await cb.answer('Obrolan suara tidak terhubung atau sudah dimainkan', show_alert=True)
         else:
             callsmusic.pytgcalls.resume_stream(chat_id)
-            await cb.answer('Music Resumed!')     
+            await cb.answer('Musik dilanjutkan!')     
     elif type_ == 'puse':         
         if (
             chat_id not in callsmusic.pytgcalls.active_calls
@@ -335,7 +325,7 @@ async def m_cb(b, cb):
         else:
             callsmusic.pytgcalls.pause_stream(chat_id)
             
-            await cb.answer('Music Paused!')
+            await cb.answer('Musik dijeda!')
     elif type_ == 'cls':          
         await cb.answer('Closed menu')
         await cb.message.delete()       
@@ -352,11 +342,11 @@ async def m_cb(b, cb):
                 
                 ],
                 [
-                    InlineKeyboardButton('Playlist 📖', 'playlist'),
+                    InlineKeyboardButton('Playlist 📝', 'playlist'),
                 
                 ],
                 [       
-                    InlineKeyboardButton("❌ Close",'cls')
+                    InlineKeyboardButton("Tutup",'cls')
                 ]        
             ]
         )
@@ -378,7 +368,7 @@ async def m_cb(b, cb):
                     chat_id,
                     callsmusic.queues.get(chat_id)["file"]
                 )
-                await cb.answer('Skipped')
+                await cb.answer('Melanjutkan ke lagu berikut nya')
                 await cb.message.edit((m_chat, qeue), reply_markup=r_ply(the_data))
                 await cb.message.reply_text(f'- Melewati lagu\n- Sedang dimainkan **{qeue[0][0]}**')
 
@@ -472,13 +462,13 @@ async def play(_, message: Message):
             [   
                 [
                                
-                    InlineKeyboardButton('📝 Daftar Putar', callback_data='playlist'),
-                    InlineKeyboardButton('Menu ⏯ ', callback_data='menu')
+                    InlineKeyboardButton('Daftar Putar', callback_data='playlist'),
+                    InlineKeyboardButton('Dashboard', callback_data='menu')
                 
                 ],                     
                 [
                     InlineKeyboardButton(
-                        "📱 Follow Instagram", url="https://t.me/VcgSupportGroup") 
+                        "Support Channel 🖥", url="https://t.me/AkuUserBot") 
                 ],
                 [       
                     InlineKeyboardButton(
@@ -517,9 +507,10 @@ async def play(_, message: Message):
         qeue.append(appendable)
         callsmusic.pytgcalls.join_group_call(message.chat.id, file_path)
         await message.reply_photo(
-        photo="final.png",
+        photo=""final.png",
         reply_markup=keyboard,
-        caption="🎶 **Memutar Lagu Permintaan dari {}**".format(
+        caption=f"🏷 **Title:** [{title[:35]}]({url})\n **⏱ Duration:** {duration}\n"\n
+                + f"💡 **Status:** Playing\n🎧 **Requested by:** {requested_by}".format(
         message.from_user.mention()
         ),
     )
@@ -534,7 +525,7 @@ async def play(_, message: Message):
 )
 async def deezer(client: Client, message_: Message):
     global que
-    lel = await message_.reply("🔄 **Sedang Memproses**")
+    lel = await message_.reply("🔄 **Sedang Memproses...**")
     administrators = await get_administrators(message_.chat)
     chid = message_.chat.id
     usar = await USER.get_me()
@@ -569,7 +560,7 @@ async def deezer(client: Client, message_: Message):
         #lmoa = await client.get_chat_member(chid,wew)
     except:
         await lel.edit(
-            "<i> helper Userbot tidak ada dalam obrolan ini, Minta admin untuk mengirim /play perintah untuk pertama kalinya atau menambahkan asisten secara manual</i>"
+            "<i> {user.first_name} Asisten userbot tidak ada dalam obrolan ini, Minta admin untuk mengirim /play perintah untuk pertama kalinya atau menambahkan asisten secara manual</i>"
         )
         return                            
     requested_by = message_.from_user.first_name
@@ -578,7 +569,7 @@ async def deezer(client: Client, message_: Message):
         lmoa = await client.get_chat_member(chid,wew)
     except:
         await lel.reply(
-            "<i>Sepertinya helper Userbot tidak ada dalam obrolan ini, Minta admin untuk mengirim /play perintah untuk pertama kalinya atau menambahkan asisten secara manual</i>"
+            "<i>Sepertinya Asisten Userbot tidak ada dalam obrolan ini, Minta admin untuk mengirim /play perintah untuk pertama kalinya atau menambahkan asisten secara manual</i>"
         )
         pass    
 
@@ -653,7 +644,7 @@ async def deezer(client: Client, message_: Message):
         chat_id=message_.chat.id,
         reply_markup=keyboard,
         photo="final.png",
-        caption=f"#️⃣ Mengantri di posisi {position}.)."
+        caption=f"♬Irama Musik♬ > #️⃣ Mengantri di posisi {position}.)."
     ) 
     os.remove("final.png")
 
