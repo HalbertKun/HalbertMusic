@@ -126,18 +126,20 @@ async def playlist(client, message):
         temp.append(t)
     now_playing = temp[0][0]
     by = temp[0][1].mention(style='md')
-    msg = "**Daftar lagu yang sedang diputar di grup {}:**".format(message.chat.title)
+    msg = "**• Daftar lagu yang sedang diputar di grup {}:**".format(message.chat.title)
     msg += "\n♬ "+ now_playing
     msg += "\n♬ Permintaan "+by
+    msg += "\n─────────────────────"
     temp.pop(0)
     if temp:
         msg += '\n\n'
-        msg += '**Lagu selanjutnya yang akan diputar:**'
+        msg += '**• Lagu selanjutnya yang akan diputar:**'
         for song in temp:
             name = song[0]
             usr = song[1].mention(style='md')
             msg += f'\n♬ {name}'
             msg += f'\n♬ Permintaan {usr}\n'
+            msg += f'\n─────────────────────\n'
     await message.reply_text(msg)       
     
 # ============================= Settings =========================================
@@ -231,18 +233,20 @@ async def p_cb(b, cb):
             temp.append(t)
         now_playing = temp[0][0]
         by = temp[0][1].mention(style='md')
-        msg = "**Sedang diputar di {}:**".format(cb.message.chat.title)
+        msg = "**• Daftar lagu yang sedang diputar di grup {}:**".format(cb.message.chat.title)
         msg += "\n♬ "+ now_playing
         msg += "\n♬ Permintaan "+by
+        msg += "\n─────────────────────"
         temp.pop(0)
         if temp:
              msg += '\n\n'
-             msg += '**Lagu selanjutnya:**'
+             msg += '**• Lagu selanjutnya yang akan diputar:**'
              for song in temp:
                  name = song[0]
                  usr = song[1].mention(style='md')
                  msg += f'\n♬ {name}'
                  msg += f'\n♬ Permintaan {usr}\n'
+                 msg += f'\n─────────────────────\n'
         await cb.message.edit(msg)      
 
 @Client.on_callback_query(filters.regex(pattern=r'^(play|pause|skip|leave|puse|resume|menu|cls)$'))
@@ -291,18 +295,20 @@ async def m_cb(b, cb):
             temp.append(t)
         now_playing = temp[0][0]
         by = temp[0][1].mention(style='md')
-        msg = "**Sedang diputar di {}:**".format(cb.message.chat.title)
+        msg = "**• Daftar lagu yang sedang diputar di grup {}:**".format(cb.message.chat.title)
         msg += "\n♬ "+ now_playing
         msg += "\n♬ Permintaan "+by
+        msg += "\n─────────────────────"
         temp.pop(0)
         if temp:
              msg += '\n\n'
-             msg += '**Lagu selanjutnya:**'
+             msg += '**• Lagu selanjutnya yang akan diputar:**'
              for song in temp:
                  name = song[0]
                  usr = song[1].mention(style='md')
                  msg += f'\n♬ {name}'
                  msg += f'\n♬ Permintaan {usr}\n'
+                 msg += f'\n─────────────────────\n'
         await cb.message.edit(msg)      
                       
     elif type_ == 'resume':     
@@ -327,7 +333,7 @@ async def m_cb(b, cb):
             
             await cb.answer('Musik dijeda!')
     elif type_ == 'cls':          
-        await cb.answer('Closed menu')
+        await cb.answer('Menu ditutup')
         await cb.message.delete()       
 
     elif type_ == 'menu':  
@@ -422,7 +428,7 @@ async def play(_, message: Message):
         #lmoa = await _.get_chat_member(chid,wew)
     except:
         await lel.edit(
-            "<i>helper Userbot tidak ada dalam obrolan ini, Minta admin untuk mengirim /play perintah untuk pertama kalinya atau tambahkan asisten secara manual</i>"
+            "<i>Asisten userbot tidak ada dalam obrolan ini, Minta admin untuk mengirim /play perintah untuk pertama kalinya atau tambahkan asisten secara manual</i>"
         )
         return    
     sender_id = message.from_user.id
@@ -472,7 +478,7 @@ async def play(_, message: Message):
                 ],
                 [       
                     InlineKeyboardButton(
-                        text="❌ Tutup",
+                        text="Tutup",
                         callback_data='cls')
 
                 ]                             
@@ -492,7 +498,7 @@ async def play(_, message: Message):
         qeue.append(appendable)
         await message.reply_photo(
         photo="final.png", 
-        caption=f"#⃣ Lagu yang Anda minta **Sedang Antri** di posisi **{position}**",
+        caption=f"#⃣ Lagu yang Anda minta **Sedang Antri** di posisi **{position}.**",
         reply_markup=keyboard)
         os.remove("final.png")
         return await lel.delete()
@@ -560,7 +566,7 @@ async def deezer(client: Client, message_: Message):
         #lmoa = await client.get_chat_member(chid,wew)
     except:
         await lel.edit(
-            "<i> {user.first_name} Asisten userbot tidak ada dalam obrolan ini, Minta admin untuk mengirim /play perintah untuk pertama kalinya atau menambahkan asisten secara manual</i>"
+            "<i>Asisten userbot tidak ada dalam obrolan ini, Minta admin untuk mengirim /play perintah untuk pertama kalinya atau menambahkan asisten secara manual</i>"
         )
         return                            
     requested_by = message_.from_user.first_name
@@ -607,7 +613,7 @@ async def deezer(client: Client, message_: Message):
                 ],
              [       
                  InlineKeyboardButton(
-                     text="❌ Tutup",
+                     text="Tutup",
                      callback_data='cls')
 
             ]                      
@@ -625,7 +631,7 @@ async def deezer(client: Client, message_: Message):
         loc = file_path
         appendable = [s_name, r_by, loc]
         qeue.append(appendable)
-        await res.edit_text(f"Sedang memainkan [{title}]({url}) Via Deezer")
+        await res.edit_text(f"Sedang memainkan [{title}]({url}) via Deezer")
     else:
         await res.edit_text("🎶 Memutar Lagu.....")
         chat_id = message_.chat.id
@@ -700,7 +706,7 @@ async def jiosaavn(client: Client, message_: Message):
     text = message_.text.split(" ", 1)
     query = text[1]
     res = lel
-    await res.edit(f"Sedang mencari...🔍 untuk `{query}` di jio saavn")
+    await res.edit(f"Sedang mencari...🔍 lagu `{query}` via jio saavn")
     try:
         async with aiohttp.ClientSession() as session:
             async with session.get(
@@ -723,7 +729,7 @@ async def jiosaavn(client: Client, message_: Message):
          [   
              [
                InlineKeyboardButton('📝 Playlist', callback_data='playlist'),
-               InlineKeyboardButton('Menu ⏯ ', callback_data='menu')   
+               InlineKeyboardButton('Dashboard', callback_data='menu')   
              ],                     
              [
                 InlineKeyboardButton(
@@ -735,7 +741,7 @@ async def jiosaavn(client: Client, message_: Message):
             ],
              [       
                InlineKeyboardButton(
-                   text="❌ Tutup",
+                   text="Tutup",
                    callback_data='cls')
 
             ]                          
@@ -755,7 +761,7 @@ async def jiosaavn(client: Client, message_: Message):
             chat_id=message_.chat.id,
             reply_markup=keyboard,
             photo="final.png",
-            caption=f"=#️⃣ Mengantri di posisi {position}",
+            caption=f"♬Irama Musik♬ > #️⃣ Mengantri di posisi {position}",
         
         )           
            
@@ -777,7 +783,7 @@ async def jiosaavn(client: Client, message_: Message):
         chat_id=message_.chat.id,
         reply_markup=keyboard,
         photo="final.png",
-        caption=f"🎶 Memutar Lagu {sname} Via Jiosaavn",
+        caption=f"🎶 Memutar lagu {sname} via Jiosaavn",
         
     )
     os.remove("final.png")
