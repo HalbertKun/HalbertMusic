@@ -32,14 +32,14 @@ async def update_admin(client, message):
 @errors
 async def pause(_, message: Message):
     callsmusic.pytgcalls.pause_stream(message.chat.id)
-    await message.reply_text("⏸ **Musik Dijeda**")
+    await message.reply_text("▶️ Musik dijeda!")
 
 
 @Client.on_message(command("resume") & other_filters)
 @errors
 async def resume(_, message: Message):
     callsmusic.pytgcalls.resume_stream(message.chat.id)
-    await message.reply_text("▶️ **Musik Dilanjutkan**")
+    await message.reply_text("⏸ Musik dilanjutkan!")
 
 
 @Client.on_message(command("end") & other_filters)
@@ -51,7 +51,7 @@ async def stop(_, message: Message):
         pass
 
     callsmusic.pytgcalls.leave_group_call(message.chat.id)
-    await message.reply_text("⏹ **Musik dihentikan**")
+    await message.reply_text("⏹ Musik dihentikan!")
 
 
 @Client.on_message(command("skip") & other_filters)
@@ -60,14 +60,14 @@ async def skip(_, message: Message):
     chat_id = message.chat.id
 
     sira.task_done(chat_id)
-    await message.reply_text("⏭ **Memproses...**")
+    await message.reply_text("⏭ Memproses...")
     if callsmusic.queues.is_empty(message.chat.id):
         callsmusic.pytgcalls.leave_group_call(chat_id)
-        await message.reply_text("tidak ada dalam antrian")
+        await message.reply_text("Tidak ada musik dalam antrian")
     else:
         callsmusic.pytgcalls.change_stream(
                 message.chat.id,
                 callsmusic.queues.get(message.chat.id)["file"]
             )
 
-        await message.reply_text("🔂 **Skip ke lagu berikutnya**")
+        await message.reply_text("🔂 Melanjutkan ke lagu berikutnya!")
