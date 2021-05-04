@@ -6,15 +6,16 @@ from callsmusic import callsmusic
 import traceback
 import os
 import sys
+import sira
 from pyrogram.errors.exceptions.bad_request_400 import ChatAdminRequired
 from pyrogram.errors.exceptions.flood_420 import FloodWait
 from pyrogram import filters, emoji
 from config import BOT_NAME as BN
 from helpers.filters import command, other_filters
-from helpers.decorators import errors, authorized_users_only
+from helpers.decorators import errors
 from config import que, admins as a
 
-@Client.on_message(filters.command('adminreset'))
+@Client.on_message(filters.command('reload'))
 async def update_admin(client, message):
     global a
     admins = await client.get_chat_members(message.chat.id, filter="administrators")
@@ -22,88 +23,51 @@ async def update_admin(client, message):
     for u in admins:
         new_ads.append(u.user.id)
     a[message.chat.id] = new_ads
-    await message.reply_text('❏ Berhasil memperbarui daftar admin di grup **{}**'.format(message.chat.title))
+    #await message.reply_text('Sucessfully updated admin list in **{}**'.format(message.chat.title))
 
 
 
 
 @Client.on_message(command("pause") & other_filters)
 @errors
-@authorized_users_only
 async def pause(_, message: Message):
-    if (
-            message.chat.id not in callsmusic.pytgcalls.active_calls
-    ) or (
-            callsmusic.pytgcalls.active_calls[message.chat.id] == 'paused'
-    ):
-        await message.reply_text("❗ Tidak ada Lagu yang sedang diputar!")
-    else:
-        callsmusic.pytgcalls.pause_stream(message.chat.id)
-        await message.reply_text("▶️ Pemutaran lagu dihentikan!")
+    callsmusic.pytgcalls.pause_stream(message.chat.id)
+    await message.reply_text("⏸ **Musik Dijeda**")
 
 
 @Client.on_message(command("resume") & other_filters)
 @errors
-@authorized_users_only
 async def resume(_, message: Message):
-    if (
-            message.chat.id not in callsmusic.pytgcalls.active_calls
-    ) or (
-            callsmusic.pytgcalls.active_calls[message.chat.id] == 'playing'
-    ):
-        await message.reply_text("❗ Tidak ada Lagu yang sedang di jeda !")
-    else:
-        callsmusic.pytgcalls.resume_stream(message.chat.id)
-        await message.reply_text("⏸ Pemutaran lagu dilanjutkan!")
+    callsmusic.pytgcalls.resume_stream(message.chat.id)
+    await message.reply_text("▶️ **Musik Dilanjutkan**")
 
 
 @Client.on_message(command("end") & other_filters)
 @errors
-@authorized_users_only
 async def stop(_, message: Message):
-    if message.chat.id not in callsmusic.pytgcalls.active_calls:
-        await message.reply_text("❗ Tidak ada Lagu yang sedang berlangsung!")
-    else:
-        try:
-            callsmusic.queues.clear(message.chat.id)
-        except QueueEmpty:
-            pass
+    try:
+        callsmusic.queues.clear(message.chat.id)
+    except:
+        pass
 
-        callsmusic.pytgcalls.leave_group_call(message.chat.id)
-        await message.reply_text("⏹ Hmm, lagu telah terputus dari obrolan suara!")
+    callsmusic.pytgcalls.leave_group_call(message.chat.id)
+    await message.reply_text("⏹ **Musik dihentikan**")
 
 
 @Client.on_message(command("skip") & other_filters)
 @errors
-@authorized_users_only
 async def skip(_, message: Message):
-    global que
-    if message.chat.id not in callsmusic.pytgcalls.active_calls:
-        await message.reply_text("❗ Tidak ada lagu yang diputar untuk dilewati!")
-    else:
-        callsmusic.queues.task_done(message.chat.id)
+    chat_id = message.chat.id
 
-        if callsmusic.queues.is_empty(message.chat.id):
-            callsmusic.pytgcalls.leave_group_call(message.chat.id)
-        else:
-            callsmusic.pytgcalls.change_stream(
+    sira.task_done(chat_id)
+    await message.reply_text("⏭ **Memproses...**")
+    if callsmusic.queues.is_empty(message.chat.id):
+        callsmusic.pytgcalls.leave_group_call(chat_id)
+        await message.reply_text("tidak ada dalam antrian")
+    else:
+        callsmusic.pytgcalls.change_stream(
                 message.chat.id,
                 callsmusic.queues.get(message.chat.id)["file"]
             )
-                
 
-    qeue = que.get(message.chat.id)
-    if qeue:
-        skip = qeue.pop(0)
-    if not qeue:
-        return
-    await message.reply_text(f'- Dilewati **{skip[0]}**\n- Sedang dimainkan **{qeue[0][0]}**')
-
-
-@Client.on_message(
-    filters.command("admincache")
-)
-@errors
-async def admincache(client, message: Message):
-    set(message.chat.id, [member.user for member in await message.chat.get_members(filter="administrators")])
-    #await message.reply_text("⚝𝗜𝗿𝗮𝗺𝗮 𝗠𝘂𝘀𝗶𝗸⚝ : ❇️ Admin cache refreshed!")
+        await message.reply_text("🔂 **Skip ke lagu berikutnya**")
